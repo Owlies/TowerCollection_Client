@@ -1,0 +1,2 @@
+{"cost" : 20,	"coolDownTime" : 15, "type" : 0,	"trigger" : 0,	"fieldName" : "defenseFactor",		"deltaValue": 0.4,	"duration" : 10}
+{"cost" : 20,	"coolDownTime" : 15, "type" : 0,	"trigger" : 0,	"fieldName" : "attackDamageFactor", "deltaValue": 0.4,	"duration" : 10}

@@ -1,0 +1,24 @@
+//     //defense properties
+//     public float HP;            //hit point or health point
+//     public float DF;            //defense
+
+//     //attack properties
+//     public float AD;            //attack damage
+//     public float AS;            //attack speed
+//     public float AR;            //attack range
+
+//     public UNIT_QUALITY UQ;     //unit rarity
+//     public UNIT_TYPE UT;        //unit type (e.g. flying)
+
+//     public int   DT;            //defense type
+//     public float VR;            //view range
+//     public float MS;            //move speed 
+//     public int   EC;            //element crystal          
+//     public MOVE_TYPE MT;        //move type
+//     public int EC;              //element crystal dropped
+
+[
+    {"ID": 0,   "prefabName": "Monster",        "HP": 10,   "DF": 2,    "DT" : 0,  "AD": 5,    "AS": 1.0,  "AR": 10,   "VR": 40,   "MS": 40,   "MT": 0,    "UQ": 0, "UT" : 0, "EC" : 4},
+    {"ID": 1,   "prefabName": "MagicMonster",   "HP": 6,    "DF": 2,    "DT" : 1,  "AD": 4,    "AS": 1.5,  "AR": 30,   "VR": 50,   "MS": 60,   "MT": 0,    "UQ": 0, "UT" : 0, "EC" : 3},
+    {"ID": 2,   "prefabName": "Monster",        "HP": 50,   "DF": 5,    "DT" : 2,  "AD": 10,   "AS": 3.0,  "AR": 10,   "VR": 40,   "MS": 10,   "MT": 0,    "UQ": 0, "UT" : 0, "EC" : 2}
+]

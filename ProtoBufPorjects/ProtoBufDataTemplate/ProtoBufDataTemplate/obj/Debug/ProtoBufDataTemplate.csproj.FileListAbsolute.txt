@@ -1,0 +1,6 @@
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\bin\Debug\ProtoBufDataTemplate.dll
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\bin\Debug\ProtoBufDataTemplate.pdb
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\bin\Debug\protobuf-net.dll
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\obj\Debug\ProtoBufDataTemplate.csprojResolveAssemblyReference.cache
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\obj\Debug\ProtoBufDataTemplate.dll
+D:\Projects\TowerCollection\ProtoBufPorjects\ProtoBufDataTemplate\ProtoBufDataTemplate\obj\Debug\ProtoBufDataTemplate.pdb

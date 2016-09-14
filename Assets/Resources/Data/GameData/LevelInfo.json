@@ -1,0 +1,19 @@
+[
+    {
+        "monsters" :
+        [
+        {"monsterID": 1,    "count" : 100,   "startTime" : 3,    "interval" : 2},
+        {"monsterID": 2,    "count" : 100,   "startTime" : 3.5,    "interval" : 1.5}
+        ],
+        "towers" :
+        [
+        {"towerID" : 3, "pos" : {"x" : 160, "y" : 0, "z": 60}},
+        {"towerID" : 1, "pos" : {"x" : 200, "y" : 0, "z": 100}},
+        {"towerID" : 1, "pos" : {"x" : 120, "y" : 0, "z": 100}},
+        {"towerID" : 2, "pos" : {"x" : 160, "y" : 0, "z": 145}},
+        {"towerID" : 2, "pos" : {"x" : 105, "y" : 0, "z": 205}},
+        {"towerID" : 2, "pos" : {"x" : 180, "y" : 0, "z": 250}},
+        {"towerID" : 1, "pos" : {"x" : 125, "y" : 0, "z": 350}}
+        ]
+    }
+]
