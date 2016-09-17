@@ -1,0 +1,9 @@
+*.a
+*.o
+*.so
+*.exe
+*.lib
+skynet
+Library/metadata*
+Library
+Temp/*
