@@ -2,6 +2,7 @@
 using GameSocket;
 using ProtoBufDataTemplate;
 using ProtoBuf.Meta;
+using System;
 
 public class APIManager : MonoBehaviour {
 	public double sendFrequency = 3.0f;
@@ -16,6 +17,15 @@ public class APIManager : MonoBehaviour {
         this.client.CreateConnection("127.0.0.1", 8888);
         Item testItem = new Item("huayu", 999, ItemType.Hat);
         this.dataToSend = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
+		byte[] data = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
+		int size = this.dataToSend.Length;
+		char byte1 = (char)(size/256);
+		char byte2 = (char)(size%256);
+
+		this.dataToSend = new byte[data.Length + 2];
+		this.dataToSend[0] = Convert.ToByte(byte1);
+		this.dataToSend[1] = Convert.ToByte(byte2);
+		System.Buffer.BlockCopy(data, 0, this.dataToSend, 2, data.Length);
     }
 	
 	// Update is called once per frame
@@ -25,7 +35,7 @@ public class APIManager : MonoBehaviour {
 			return;
 		}
         Debug.Log("Data sent!");
-        this.client.SendMessageToServer(dataToSend);
+        this.client.SendMessageToServer(this.dataToSend);
 		this.sendCoolDown = this.sendFrequency;
     }
 }
