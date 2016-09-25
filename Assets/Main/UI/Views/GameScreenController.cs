@@ -37,7 +37,7 @@ public class GameScreenController : ViewController {
 			scrollRect = screenContainer.GetComponent<ScrollRect>();
 		}
 		battleButton.onClick.AddListener(()=>{
-			SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
+			SendEvent(EVT_TYPE.EVT_TYPE_FIND_MATCH);
 		});
 	}
 	

@@ -40,12 +40,36 @@ public class GameLoopEventHandler{
 
 	public static void ReleaseSkill(Event evt)
 	{
-		Vector3 position = (Vector3)evt.evt_obj[0];
-		LevelTower tower = (LevelTower)evt.evt_obj[1];
-        GameObject gameObject = (GameObject)evt.evt_obj[2];
-        Tower towerUnit = gameObject.GetComponent<Tower>();
-        towerUnit.Ultimate(evt.evt_obj);
-		Debug.Log("tower : " + tower.towerID + " release skill at : " + position);
+		NetworkManager.Instance.SendNetworkRequest("Release skill", 
+			(success)=>
+			{
+				Vector3 position = (Vector3)evt.evt_obj[0];
+				LevelTower tower = (LevelTower)evt.evt_obj[1];
+				GameObject gameObject = (GameObject)evt.evt_obj[2];
+				TowerButton button = (TowerButton)evt.evt_obj[3];
+				Tower towerUnit = gameObject.GetComponent<Tower>();
+				towerUnit.Ultimate(evt.evt_obj);
+				//Debug.Log("tower : " + tower.towerID + " release skill at : " + position);
+				button.ReleaseSkillSuccess();
+			},
+			(fail)=>
+			{
+				Debug.LogError("Network: skill release failed!");	
+			});
+
+	}
+
+	public static void CreateTower(Event evt)
+	{
+		NetworkManager.Instance.SendNetworkRequest("Create Tower",
+			(success)=>{
+				TowerButton button = (TowerButton)evt.evt_obj[0];
+				button.SpawnTowerSuccess();
+			},
+			(fail)=>{
+				Debug.LogError("Network: spawn tower failed!");
+			});
+		
 	}
 		
 }

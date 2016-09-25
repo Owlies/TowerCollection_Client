@@ -170,17 +170,22 @@ public class TowerButton : MonoBehaviour, IPointerDownHandler {
 			if(!Input.GetMouseButton(0))
 			{
 				m_moving = false;
-				m_skillCooldown = 0;
 				// TODO :: play skill effects
 				ArrayList skillInfo = new ArrayList();
 				skillInfo.Add(m_skill.transform.position);
 				skillInfo.Add(m_levelTower);
                 skillInfo.Add(m_tower);
+				skillInfo.Add((TowerButton)this);
 				EventManager.Instance.SendEventWithList(EVT_TYPE.EVT_TYPE_RELEASE_SKILL, skillInfo);
-				EventManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_CHANGE_EC, -m_towerSkill.skill.cost);
 				Destroy(m_skill);
 			}
 		}
+	}
+
+	public void ReleaseSkillSuccess()
+	{
+		EventManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_CHANGE_EC, -m_towerSkill.skill.cost);
+		m_skillCooldown = 0;
 	}
 
 	// Logic for drag to spawn tower
@@ -222,16 +227,23 @@ public class TowerButton : MonoBehaviour, IPointerDownHandler {
 			if(m_towerPrefab != null && ValidRange(m_towerPrefab.transform.position))
 			{
 				m_levelTower.pos = m_towerPrefab.transform.position;
-				m_tower = SceneManager.Instance.CreateTower(m_levelTower);
-				EventManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_CHANGE_EC, -m_towerSkill.skill.cost);
+				ArrayList parameter = new ArrayList();
+				parameter.Add((TowerButton)this);
+				EventManager.Instance.SendEventWithList(EVT_TYPE.EVT_TYPE_CREATE_TOWER, parameter);
 				Destroy(m_towerPrefab);
-				FlipUI();
 			}
 			else
 			{
 				Destroy(m_towerPrefab);
 			}
 		}
+	}
+
+	public void SpawnTowerSuccess()
+	{
+		m_tower = SceneManager.Instance.CreateTower(m_levelTower);
+		EventManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_CHANGE_EC, -m_towerSkill.skill.cost);
+		FlipUI();
 	}
 
 	// make sure it's not too near, or too left or right

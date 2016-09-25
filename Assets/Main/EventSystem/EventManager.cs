@@ -74,11 +74,12 @@ public class EventManager : MonoBehaviour {
         BindEvent(EVT_TYPE.EVT_TYPE_DEFAULT, new Handler(DefaultEventHandler.Handle));
 
         BindEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME, new Handler(GameLoopEventHandler.EnterGame));
+		BindEvent(EVT_TYPE.EVT_TYPE_FIND_MATCH, new Handler(DefaultEventHandler.FindMatch));
         BindEvent(EVT_TYPE.EVT_TYPE_UNIT_DIE, new Handler(GameLoopEventHandler.UnitDie));
         BindEvent(EVT_TYPE.EVT_TYPE_CHANGE_EC, new Handler(GameLoopEventHandler.ChangeElementCrystal));
 
 		BindEvent(EVT_TYPE.EVT_TYPE_RELEASE_SKILL, new Handler(GameLoopEventHandler.ReleaseSkill));
-        
+		BindEvent(EVT_TYPE.EVT_TYPE_CREATE_TOWER, new Handler(GameLoopEventHandler.CreateTower));
 
         BindEvent(EVT_TYPE.EVT_TYPE_LOAD_FAILED, new Handler(LoadEventHandler.LoadFailed));
 
