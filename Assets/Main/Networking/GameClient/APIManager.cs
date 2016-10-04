@@ -14,7 +14,7 @@ public class APIManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         this.client = new SocketClient();
-        this.client.CreateConnection("127.0.0.1", 8888);
+        this.client.CreateConnection("192.168.1.71", 8888);
         Item testItem = new Item("huayu", 999, ItemType.Hat);
         this.dataToSend = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
 		byte[] data = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
@@ -37,5 +37,12 @@ public class APIManager : MonoBehaviour {
         Debug.Log("Data sent!");
         this.client.SendMessageToServer(this.dataToSend);
 		this.sendCoolDown = this.sendFrequency;
+
+        if (this.client.receivedDataSize > 0) {
+            Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(this.client.receivedData);
+            Debug.Log("Received Item Name: " + receivedItem.name);
+            this.client.receivedDataSize = 0;
+        }
+        
     }
 }
