@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using ProtoBufDataTemplate;
 using System.Collections;
 
 public class DefaultEventHandler {
@@ -10,15 +11,27 @@ public class DefaultEventHandler {
 
 	public static void FindMatch(Event evt)
 	{
-		NetworkManager.Instance.SendNetworkRequest("Find match",
-			(success) =>
-			{
-				//Debug.Log("success!");
+		Item item = new Item();
+		item.name = "FindMatch";
+		NetworkManager.Instance.SendNetworkRequest<Item>(item,
+			(data)=>{
+				Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(data);
+				Debug.Log(receivedItem.name);
 				GameManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
 			},
-			(fail) =>
-			{
-				Debug.LogWarning("failed!");
-			});
+			(data)=>{
+				Debug.LogWarning("find failed!");
+			}
+		);
+		//NetworkManager.Instance.SendNetworkRequest("Find match",
+		//	(success) =>
+		//	{
+		//		//Debug.Log("success!");
+		//		GameManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
+		//	},
+		//	(fail) =>
+		//	{
+		//		Debug.LogWarning("failed!");
+		//	});
 	}
 }
