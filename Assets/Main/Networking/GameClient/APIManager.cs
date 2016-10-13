@@ -22,10 +22,18 @@ public class APIManager : MonoBehaviour {
 		char byte1 = (char)(size/256);
 		char byte2 = (char)(size%256);
 
-		this.dataToSend = new byte[data.Length + 2];
+        string protobufType = "Item";
+
+		this.dataToSend = new byte[data.Length + 4 + protobufType.Length];
 		this.dataToSend[0] = Convert.ToByte(byte1);
 		this.dataToSend[1] = Convert.ToByte(byte2);
-		System.Buffer.BlockCopy(data, 0, this.dataToSend, 2, data.Length);
+
+        
+        this.dataToSend[3] = Convert.ToByte((char)(protobufType.Length/256));
+		this.dataToSend[4] = Convert.ToByte((char)(protobufType.Length%256));
+
+        System.Buffer.BlockCopy(data, 0, this.dataToSend, 4, protobufType.Length);
+		System.Buffer.BlockCopy(data, 0, this.dataToSend, 4 + protobufType.Length, data.Length);
     }
 	
 	// Update is called once per frame
