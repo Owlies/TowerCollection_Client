@@ -59,6 +59,9 @@ public class NetworkManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(mRequests.Count <= 0)
+			return;
+		
 		NetworkRequest currentRequest = mRequests.Peek();
 		
 		switch(currentRequest.mStatus)
