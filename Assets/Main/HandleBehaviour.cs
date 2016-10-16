@@ -26,7 +26,8 @@ public class HandleBehaviour : MonoBehaviour {
 
     private void OnDisable()
     {
-        UpdateManager.Instance.UnRegisterUpdateFun(HandleUpdate);
+        if (UpdateManager.Instance)
+            UpdateManager.Instance.UnRegisterUpdateFun(HandleUpdate);
         HandleDisable();
     }
 

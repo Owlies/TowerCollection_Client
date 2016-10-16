@@ -31,7 +31,7 @@ public class UpdateManager : MonoBehaviour {
 
     public void UnRegisterUpdateFun(UpdateFun fun)
     {
-        readyToRemoveFuns.Remove(fun);
+        readyToRemoveFuns.Add(fun);
     }
 
 	// Use this for initialization
