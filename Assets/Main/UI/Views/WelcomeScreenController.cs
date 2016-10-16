@@ -14,9 +14,4 @@ public class WelcomeScreenController : ViewController {
     {
         SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
     }
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

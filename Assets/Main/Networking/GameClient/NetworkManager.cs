@@ -28,7 +28,7 @@ public class NetworkRequest
 	}
 }
 
-public class NetworkManager : MonoBehaviour {
+public class NetworkManager : HandleBehaviour {
 
 	private static NetworkManager m_instance;
 	private NetworkManager() { }
@@ -57,7 +57,8 @@ public class NetworkManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 
 		if(mRequests.Count <= 0)
 			return;

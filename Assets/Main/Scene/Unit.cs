@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class Unit : MonoBehaviour {
+public class Unit : HandleBehaviour {
 
     public int ID;
     private static int GlobalID = 0;
@@ -22,15 +22,6 @@ public class Unit : MonoBehaviour {
         buffs = new Buffs();
 		AddStatusUI();
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
 	void AddStatusUI()
 	{

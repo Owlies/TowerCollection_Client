@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : HandleBehaviour
+{
 
     private static GameManager m_instance;
     private GameManager() { }
@@ -82,10 +83,5 @@ public class GameManager : MonoBehaviour {
 
         // pre load everying that we may need
         startPreLoad();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }

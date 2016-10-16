@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ResourceManager : MonoBehaviour {
+public class ResourceManager : HandleBehaviour
+{
 
     private static ResourceManager m_instance;
     private ResourceManager() { }
@@ -195,9 +196,4 @@ public class ResourceManager : MonoBehaviour {
         textureLoadList = new List<string>(500);
         textAssetLoadList = new List<string>(200);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

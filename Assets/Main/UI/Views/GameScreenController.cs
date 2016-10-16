@@ -42,7 +42,8 @@ public class GameScreenController : ViewController {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 		if(Input.GetMouseButton(0) && !moving)
 		{
 			if(scrollBar.value - screenPositions[currentScreenIndex] > screenDistance

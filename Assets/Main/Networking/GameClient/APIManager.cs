@@ -4,7 +4,7 @@ using ProtoBufDataTemplate;
 using ProtoBuf.Meta;
 using System;
 
-public class APIManager : MonoBehaviour {
+public class APIManager : HandleBehaviour {
 	public double sendFrequency = 3.0f;
 	private double sendCoolDown = 0.0f;
     private SocketClient client;
@@ -30,9 +30,7 @@ public class APIManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-
-
+	override protected void HandleUpdate () {
 		// fake return response
 		if(pendingRequest != null && (UnityEngine.Random.Range(0,1.0f) > 0.95f))
 		{

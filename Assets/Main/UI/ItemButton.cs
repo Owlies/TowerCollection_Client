@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class ItemButton : MonoBehaviour {
+public class ItemButton : HandleBehaviour {
 
 	public Text text;
 	public Button button;

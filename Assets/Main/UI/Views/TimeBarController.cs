@@ -26,16 +26,6 @@ public class TimeBarController : ViewController {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void SetTime(int seconds)
 	{
 		m_time.text = seconds/60 + ":" + (seconds%60).ToString("00");

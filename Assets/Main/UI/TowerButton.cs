@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class TowerButton : MonoBehaviour, IPointerDownHandler {
+public class TowerButton : HandleBehaviour, IPointerDownHandler {
 
 	Button m_button;
 	Text m_name;
@@ -74,7 +74,8 @@ public class TowerButton : MonoBehaviour, IPointerDownHandler {
 	}
 
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 
 		if(m_isSkill)
 		{
