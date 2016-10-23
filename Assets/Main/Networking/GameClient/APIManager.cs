@@ -14,26 +14,35 @@ public class APIManager : HandleBehaviour {
 
     // Use this for initialization
     void Start () {
-        this.client = new SocketClient();
-        this.client.CreateConnection("127.0.0.1", 8888);
-        Item testItem = new Item("huayu", 999, ItemType.Hat);
-        this.dataToSend = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
+		this.client = new SocketClient();
+		this.client.CreateConnection("127.0.0.1", 8888);
+		Item testItem = new Item("huayu", 999, ItemType.Hat);
 		byte[] data = ProtoBufLoaderTemplate.serializeProtoObject<Item>(testItem);
-		int size = this.dataToSend.Length;
-		char byte1 = (char)(size/256);
-		char byte2 = (char)(size%256);
-
-        string protobufType = "Item";
-
-		this.dataToSend = new byte[data.Length + 4 + protobufType.Length];
+		int size = data.Length;
+		
+		string protobufType = "Item";
+		
+		int totalSize = data.Length + 4 + protobufType.Length;
+		this.dataToSend = new byte[totalSize];
+		
+		
+		char byte3 = (char)(protobufType.Length/256);
+		char byte4 = (char)(protobufType.Length%256);
+		this.dataToSend[2] = Convert.ToByte(byte3);
+		this.dataToSend[3] = Convert.ToByte(byte4);
+		
+		char[] charArr = protobufType.ToCharArray();
+		for (int i = 0; i < charArr.Length; i++) {
+			byte current = Convert.ToByte(charArr[i]);
+			this.dataToSend[i + 4] = current;
+		}
+		
+		char byte1 = (char)(totalSize/256);
+		char byte2 = (char)(totalSize%256);
+		
 		this.dataToSend[0] = Convert.ToByte(byte1);
 		this.dataToSend[1] = Convert.ToByte(byte2);
-
-        
-        this.dataToSend[3] = Convert.ToByte((char)(protobufType.Length/256));
-		this.dataToSend[4] = Convert.ToByte((char)(protobufType.Length%256));
-
-        System.Buffer.BlockCopy(data, 0, this.dataToSend, 4, protobufType.Length);
+		
 		System.Buffer.BlockCopy(data, 0, this.dataToSend, 4 + protobufType.Length, data.Length);
     }
 	
