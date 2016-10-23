@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SceneManager : MonoBehaviour {
+public class SceneManager : HandleBehaviour
+{
 
     private static SceneManager m_instance;
     private SceneManager() { }
@@ -42,7 +43,8 @@ public class SceneManager : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
         if (!levelEnabled)
             return;
 

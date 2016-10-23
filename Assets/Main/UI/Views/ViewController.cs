@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ViewController : MonoBehaviour {
+public class ViewController : HandleBehaviour {
 
     protected void SendEvent(EVT_TYPE t)
     {
@@ -17,16 +17,6 @@ public class ViewController : MonoBehaviour {
     {
 
     }
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	virtual public void DeActivate()
 	{

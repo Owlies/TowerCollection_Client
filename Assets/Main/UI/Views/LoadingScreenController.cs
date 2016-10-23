@@ -68,11 +68,6 @@ public class LoadingScreenController : ViewController {
 		CheckNeedLogin();
     }
 
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void CheckNeedLogin()
 	{
 		startButton.interactable = !needLogin;

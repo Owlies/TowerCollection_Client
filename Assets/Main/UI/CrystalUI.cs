@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CrystalUI : MonoBehaviour {
+public class CrystalUI : HandleBehaviour {
 
 	private int myValue = 1;
 	private float curScale = 1;
@@ -17,7 +17,8 @@ public class CrystalUI : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 
 		if(!collected)
 		{

@@ -25,7 +25,8 @@ public class CrystalBarController : ViewController {
 	}
 
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 
 		FillCrystalBar();
 	}

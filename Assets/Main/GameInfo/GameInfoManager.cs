@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameInfoManager : MonoBehaviour {
+public class GameInfoManager : HandleBehaviour
+{
 
     private static GameInfoManager m_instance;
     private GameInfoManager() { }
@@ -50,9 +51,4 @@ public class GameInfoManager : MonoBehaviour {
     {
         //levelInfos = Util.Deserialize<List<LevelInfo>>(GameManager.Instance.GetResourceTextAsset("Data/GameData/LevelInfo").ToString());
     }
-
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

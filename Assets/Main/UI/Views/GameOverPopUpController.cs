@@ -14,7 +14,8 @@ public class GameOverPopUpController : ViewController {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 		if(m_scale < 1)
 		{
 			m_scale += Time.deltaTime * m_expandSpeed;

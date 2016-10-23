@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public delegate void Handler(Event evt);
 
-public class EventManager : MonoBehaviour {
+public class EventManager : HandleBehaviour
+{
 
     
     private static EventManager m_instance;
@@ -103,7 +104,8 @@ public class EventManager : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 	    while(m_eventsQueue.Count != 0)
         {
             Event evt = m_eventsQueue.Dequeue() as Event;

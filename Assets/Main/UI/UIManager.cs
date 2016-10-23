@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-public class UIManager : MonoBehaviour {
+public class UIManager : HandleBehaviour {
 
     static private UIManager m_instance;
     private UIManager() { }
@@ -78,7 +78,8 @@ public class UIManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 		if(Input.GetKeyDown(KeyCode.D))
 			SetDebugUIEnable(true);
 

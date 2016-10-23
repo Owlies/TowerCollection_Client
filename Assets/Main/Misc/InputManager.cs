@@ -1,17 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class InputManager : MonoBehaviour {
-
-
-
+public class InputManager : HandleBehaviour {
 	// Use this for initialization
 	void Start () {
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
         int i = 0;
         while (i < Input.touchCount)
         {

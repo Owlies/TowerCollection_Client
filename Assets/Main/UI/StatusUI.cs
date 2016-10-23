@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StatusUI : MonoBehaviour {
+public class StatusUI : HandleBehaviour {
 
 	public GameObject HPBarUI;
 	public GameObject CurrentHPUI;
@@ -16,7 +16,8 @@ public class StatusUI : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    override protected void HandleUpdate()
+    {
 		if(RealHP < CurHP)
 		{
 			CurHP -= Time.deltaTime * ChangeHPSpeed ;

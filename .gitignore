@@ -7,3 +7,12 @@ skynet
 Library/metadata*
 Library
 Temp/*
+/*.csproj
+/*.suo
+/Library/metadata/00/*.info
+/Library/metadata/3c/*.info
+/Library/metadata/7c/*.info
+/Library/metadata/8e/*.info
+/Library/metadata/ad/*.info
+/*.sln
+/ProjectSettings

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EffectController : MonoBehaviour {
+public class EffectController : HandleBehaviour {
     public MeshRenderer renderer;
     public bool submit;
     public bool remove;
@@ -28,7 +28,7 @@ public class EffectController : MonoBehaviour {
         }
     }
 
-    void Update()
+    override protected void HandleUpdate()
     {
         if(submit)
         {

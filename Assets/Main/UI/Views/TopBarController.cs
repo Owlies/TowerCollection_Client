@@ -13,16 +13,6 @@ public class TopBarController : ViewController {
 	{
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public void CloseAll()
 	{
 	}
