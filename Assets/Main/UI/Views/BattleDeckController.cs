@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BattleDeckController : MonoBehaviour {
@@ -34,6 +35,22 @@ public class BattleDeckController : MonoBehaviour {
 			{
 				mTotalCards[cardIndex] = Instantiate<GameObject>(cardIndex < mTotalCardNumber ? mCardButtonPrefab : mCardEmptyPrefab);
 				mTotalCards[cardIndex].transform.SetParent( mDeckRows[i].transform, false);
+
+				if(cardIndex < mTotalCardNumber)
+				{
+					mTotalCards[cardIndex].GetComponent<Button>().onClick.AddListener(()=>{
+						UIManager.Instance.SetPopupEnable("CardInfoPopUp", true);
+						GameObject card = UIManager.Instance.GetPopUp("CardInfoPopUp");
+						if(card != null && card.GetComponent<CardInfoPopupController>() != null)
+						{
+							card.GetComponent<CardInfoPopupController>().Init(new TempCard());
+						}
+						else
+						{
+							Debug.LogWarning("Card Info PopUp not Found!");
+						}
+					});
+				}
 				cardIndex++;
 			}
 		}

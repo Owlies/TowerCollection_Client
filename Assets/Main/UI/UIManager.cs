@@ -50,6 +50,8 @@ public class UIManager : HandleBehaviour {
 		SetOverlayEnable("BottomBar", true);
 		SetOverlayEnable("TimeBar", true);
 
+		LoadPopUp("CardInfoPopUp");
+
     }
     public void ChangeScreen(Event evt)
     {
