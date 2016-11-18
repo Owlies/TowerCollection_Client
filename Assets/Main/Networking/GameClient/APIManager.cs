@@ -101,6 +101,13 @@ public class APIManager : HandleBehaviour {
 		Debug.Log("Data sent!");
 		this.client.SendMessageToServer(this.dataToSend);
 		this.sendCoolDown = this.sendFrequency;
+		if (this.client.receivedDataSize > 0) {
+			//GetResponse(this.client.receivedData);
+            //Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(this.client.receivedData);
+            Debug.Log("Received Data");
+			Person person = new Person(this.client.receivedData);
+            this.client.receivedDataSize = 0;
+        }
 	}
 	// Update is called once per frame
 	// override protected void HandleUpdate () {
