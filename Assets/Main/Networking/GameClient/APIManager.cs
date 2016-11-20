@@ -16,8 +16,10 @@ public class APIManager : HandleBehaviour {
     byte[] dataToSend;
 
 	void tryCreateConnection() {
-		if (this.client == null || !this.client.isConnected()) {
+		if (this.client == null) {
 			this.client = new SocketClient();
+		}
+		if (!this.client.isConnected()) {
 			this.client.CreateConnection(serverIpAddress, port);
 		}
 	}

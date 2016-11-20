@@ -47,7 +47,10 @@ namespace GameSocket
         }
 
         public bool isConnected() {
-            return this.connection != null && this.connection.Connected;
+            if (this.connection == null) {
+                return false;
+            }
+            return this.connection.Connected;
         }
 
         /// <summary>
