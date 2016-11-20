@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Random = UnityEngine.Random;
+using Sproto;
+using SprotoType;
 
 public enum NetworkRequestStatus
 {
@@ -87,10 +89,10 @@ public class NetworkManager : HandleBehaviour {
 
 	}
 
-	public void SendNetworkRequest<T>(object request, Action<byte[]> success, Action<byte[]> fail)
+	public void SendNetworkRequest<T>(SprotoTypeBase request, Action<byte[]> success, Action<byte[]> fail)
 	{
 		NetworkRequest newRequest = new NetworkRequest();
-		newRequest.mRequestData = ProtoBufLoaderTemplate.serializeProtoObject<T>((T)request);
+		newRequest.mRequestData = request.encode();
 		newRequest.mSuccess = success;
 		newRequest.mFail = fail;
 		mRequests.Enqueue(newRequest);

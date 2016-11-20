@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using ProtoBufDataTemplate;
 using System.Collections;
+using Sproto;
+using SprotoType;
 
 public class GameLoopEventHandler{
     public static void EnterGame(Event evt)
@@ -42,13 +43,13 @@ public class GameLoopEventHandler{
 	public static void ReleaseSkill(Event evt)
 	{
 
-		Item item = new Item();
-		item.name = "Release Skill";
+		Person person = new Person();
+		person.name = "Release Skill";
 
-		NetworkManager.Instance.SendNetworkRequest<Item>(item, 
+		NetworkManager.Instance.SendNetworkRequest<Person>(person, 
 			(data)=>{
-				Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(data);
-				Debug.Log("success :  " + receivedItem.name);
+				Person receivedPerson = new Person(data);
+				Debug.Log("success :  " + receivedPerson.name);
 
 				Vector3 position = (Vector3)evt.evt_obj[0];
 				LevelTower tower = (LevelTower)evt.evt_obj[1];
@@ -86,13 +87,13 @@ public class GameLoopEventHandler{
 	public static void CreateTower(Event evt)
 	{
 
-		Item item = new Item();
-		item.name = "Create Tower";
-		NetworkManager.Instance.SendNetworkRequest<Item>(item, 
+		Person person = new Person();
+		person.name = "Create Tower";
+		NetworkManager.Instance.SendNetworkRequest<Person>(person, 
 			(data)=>{
 
-				Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(data);
-				Debug.Log("success :  " + receivedItem.name);
+				Person receivedPerson = new Person(data);
+				Debug.Log("success :  " + receivedPerson.name);
 
 				TowerButton button = (TowerButton)evt.evt_obj[0];
 				button.SpawnTowerSuccess();

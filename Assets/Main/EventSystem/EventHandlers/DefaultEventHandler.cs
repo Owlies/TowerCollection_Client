@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using ProtoBufDataTemplate;
 using System.Collections;
+using Sproto;
+using SprotoType;
 
 public class DefaultEventHandler {
     public static void Handle(Event evt)
@@ -11,12 +12,12 @@ public class DefaultEventHandler {
 
 	public static void FindMatch(Event evt)
 	{
-		Item item = new Item();
-		item.name = "FindMatch";
-		NetworkManager.Instance.SendNetworkRequest<Item>(item,
+		Person person = new Person();
+		person.name = "FindMatch";
+		NetworkManager.Instance.SendNetworkRequest<Person>(person,
 			(data)=>{
-				Item receivedItem = ProtoBufLoaderTemplate.deserializeProtoObject<Item>(data);
-				Debug.Log(receivedItem.name);
+				Person receivedPerson = new Person(data);
+				Debug.Log(receivedPerson.name);
 				GameManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
 			},
 			(data)=>{

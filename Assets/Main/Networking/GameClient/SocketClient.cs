@@ -37,13 +37,17 @@ namespace GameSocket
         {
             if (this.connection != null && this.connection.Connected)
             {
-                
+                return;
             }
 
             this.connection = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.connection.NoDelay = true;
             IPEndPoint end_point = new IPEndPoint(IPAddress.Parse(serverAddress), port);
             this.connection.BeginConnect(end_point, new AsyncCallback(this.Connected), this.connection);
+        }
+
+        public bool isConnected() {
+            return this.connection != null && this.connection.Connected;
         }
 
         /// <summary>
