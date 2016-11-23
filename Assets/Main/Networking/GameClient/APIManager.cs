@@ -45,8 +45,8 @@ public class APIManager : HandleBehaviour {
 		int totalSize = person_data.Length + 2;
 		this.dataToSend = new byte[totalSize];
 		
-		char byte1 = (char)(totalSize/256);
-		char byte2 = (char)(totalSize%256);
+		char byte1 = (char)(totalSize >> 8);
+		char byte2 = (char)(totalSize);
 		
 		this.dataToSend[0] = Convert.ToByte(byte1);
 		this.dataToSend[1] = Convert.ToByte(byte2);
