@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
+
 
 namespace GameSocket
 {
@@ -145,6 +147,8 @@ namespace GameSocket
                 if (num > 0)
                 {
                     byte[] array = (byte[])iar.AsyncState;
+
+					Debug.Log("keep connect checking : " + num + " : " + array.Length);
                     if (this.SocketMessageReceivedFromServer != null && array != null)
                     {
                         this.SocketMessageReceivedFromServer(this, new SocketMessageReceivedFromServer(array, num));
@@ -153,6 +157,10 @@ namespace GameSocket
                     this.receivedDataSize = array[0] * 256 + array[1];
                     this.receivedData = new byte[num - 2];
                     System.Buffer.BlockCopy(array, 2, this.receivedData, 0, num - 2);
+					for(int i = 0;i<num;i++)
+					{
+						Debug.Log((int)this.receivedData[i]); 
+					}
 
                     array = new byte[bufferSize];
                     this.connection.BeginReceive(array, 0, bufferSize, SocketFlags.None, new AsyncCallback(this.KeepConnect), array);
