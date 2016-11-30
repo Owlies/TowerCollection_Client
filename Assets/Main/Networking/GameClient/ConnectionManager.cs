@@ -12,15 +12,17 @@ namespace Owlies.Core {
 
     public class ConnectionManager : Singleton<ConnectionManager> {
         private int session;
-        private byte[] sendBuffer;
+        public byte[] sendBuffer;
+
+        public int sendBufferSize;
         private const int MAX_BUFFER_SIZE = 1 << 16;
 
         void Start() {
-
+            
         }
 
-        void Initialize() {
-            this.session = 0;
+        ConnectionManager() {
+            this.session = 300;
             this.sendBuffer = new byte[MAX_BUFFER_SIZE];
         }
 
@@ -46,6 +48,8 @@ namespace Owlies.Core {
 
             this.sendBuffer[0] = (byte)(totalSize >> 8);
             this.sendBuffer[1] = (byte)(totalSize);
+
+            this.sendBufferSize = totalSize;
         }
         
     }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using GameSocket;
 using System;
-
+using Owlies.Core;
 using Sproto;
 using SprotoType;
 
@@ -40,17 +40,21 @@ public class APIManager : HandleBehaviour {
 		num1.type = 1;
 		person.phone.Add (num1);
 
-		byte[] person_data = person.encode();
+		// byte[] person_data = person.encode();
 
-		int totalSize = person_data.Length + 2;
-		this.dataToSend = new byte[totalSize];
+		// int totalSize = person_data.Length + 2;
+		// this.dataToSend = new byte[totalSize];
 		
-		char byte1 = (char)(totalSize >> 8);
-		char byte2 = (char)(totalSize);
+		// char byte1 = (char)(totalSize >> 8);
+		// char byte2 = (char)(totalSize);
 		
-		this.dataToSend[0] = Convert.ToByte(byte1);
-		this.dataToSend[1] = Convert.ToByte(byte2);
-		System.Buffer.BlockCopy(person_data, 0, this.dataToSend, 2, person_data.Length);
+		// this.dataToSend[0] = Convert.ToByte(byte1);
+		// this.dataToSend[1] = Convert.ToByte(byte2);
+		// System.Buffer.BlockCopy(person_data, 0, this.dataToSend, 2, person_data.Length);
+
+		ConnectionManager.Instance.serialize(person, eMessageRequestType.ChangeEvent);
+		this.dataToSend = new byte[ConnectionManager.Instance.sendBufferSize];
+		System.Buffer.BlockCopy(ConnectionManager.Instance.sendBuffer, 0, this.dataToSend, 0, ConnectionManager.Instance.sendBufferSize);
 	}
 
 	//Update is called once per frame
