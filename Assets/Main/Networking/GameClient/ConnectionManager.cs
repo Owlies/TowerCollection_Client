@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Sproto;
 using SprotoType;
 
@@ -30,17 +31,17 @@ namespace Owlies.Core {
             string messageName = sprotoObject.GetType().Name;
             int totalSize = 10 + messageName.Length;
 
-            this.sendBuffer[3] = (byte)messageType;
+            this.sendBuffer[2] = (byte)messageType;
 
-            this.sendBuffer[4] = (byte)(this.session >> 24);
-            this.sendBuffer[5] = (byte)(this.session >> 16);
-            this.sendBuffer[6] = (byte)(this.session >> 8);
-            this.sendBuffer[7] = (byte)(this.session);
+            this.sendBuffer[3] = (byte)(this.session >> 24);
+            this.sendBuffer[4] = (byte)(this.session >> 16);
+            this.sendBuffer[5] = (byte)(this.session >> 8);
+            this.sendBuffer[6] = (byte)(this.session);
 
-            this.sendBuffer[8] = (byte)(messageName.Length >> 8);
-            this.sendBuffer[9] = (byte)(messageName.Length);
-
-            System.Buffer.BlockCopy(messageName.ToCharArray(), 0, this.sendBuffer, 10, messageName.Length);
+            this.sendBuffer[7] = (byte)(messageName.Length >> 8);
+            this.sendBuffer[8] = (byte)(messageName.Length);
+            byte [] messageNameBytes = Encoding.ASCII.GetBytes(messageName.ToCharArray());
+            System.Buffer.BlockCopy(messageNameBytes, 0, this.sendBuffer, 9, messageName.Length);
             byte [] encodedMessage = sprotoObject.encode();
 
             System.Buffer.BlockCopy(encodedMessage, 0, this.sendBuffer, totalSize, encodedMessage.Length);
