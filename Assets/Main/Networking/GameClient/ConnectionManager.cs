@@ -56,18 +56,17 @@ namespace Owlies.Core {
             this.sendBufferSize = totalSize;
         }
 
-        public SprotoTypeBase deserialize(byte[] package) {
-            int totalSize = package[0] << 8 | package[1];
-            int session = package[2] << 24 | package[3] << 16 | package[4] << 8 | package[5];
-            int messageNameSize = package[6] << 8 | package[7];
+        public SprotoTypeBase deserialize(byte[] package, int packageSize) {
+            int session = package[0] << 24 | package[1] << 16 | package[2] << 8 | package[3];
+            int messageNameSize = package[4] << 8 | package[5];
             char [] chars = new char[messageNameSize];
             for(int i = 0; i < messageNameSize; ++i) {
-                chars[i] = (char)package[i + 8];
+                chars[i] = (char)package[i + 6];
             }
             string messageName = new string(chars);
-            int messageSize = totalSize - 8 - messageNameSize;
+            int messageSize = packageSize - 6 - messageNameSize;
             byte [] message = new byte[messageSize];
-            Array.Copy(package, 8 + messageNameSize, message, 0, messageSize);
+            Array.Copy(package, 6 + messageNameSize, message, 0, messageSize);
             if (messageName == "Person") {
                 Person person = new Person(message);
                 return person;

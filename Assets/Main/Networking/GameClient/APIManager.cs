@@ -62,7 +62,7 @@ public class APIManager : HandleBehaviour {
 		// fake return response
 		if(pendingRequest != null && (UnityEngine.Random.Range(0,1.0f) > 0.95f))
 		{
-			GetResponse(this.client.receivedData);
+			GetResponse(this.client.receivedData, this.client.receivedDataSize);
 			pendingRequest = null;
 		}
 
@@ -76,8 +76,8 @@ public class APIManager : HandleBehaviour {
 		this.sendCoolDown = this.sendFrequency;
 
         if (this.client.receivedDataSize > 0) {
-			GetResponse(this.client.receivedData);
-			Person person = new Person(this.client.receivedData);
+			//GetResponse(this.client.receivedData, this.client.receivedDataSize);
+			Person person = (Person)ConnectionManager.Instance.deserialize(this.client.receivedData, this.client.receivedDataSize);
             Debug.Log("Received Person Name: " + person.name);
             this.client.receivedDataSize = 0;
         }
@@ -89,7 +89,7 @@ public class APIManager : HandleBehaviour {
 		this.client.SendMessageToServer(request.mRequestData);
 	}
 
-	void GetResponse(byte[] response)
+	void GetResponse(byte[] response, int packageSize)
 	{
 		if (pendingRequest != null) {
 			pendingRequest.SetResponse(response, true);
