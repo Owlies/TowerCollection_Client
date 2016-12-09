@@ -99,6 +99,9 @@ namespace GameSocket
                 }
                 return;
             }
+			string temp = TCPClient.CompileBytesIntoString(data, data.Length);
+			Debug.Log(string.Format("Socket Client sending: len: {1} '{0}'", temp, data.Length));
+
             this.connection.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(this.SendMessageToServerComplete), this.connection);
         }
 

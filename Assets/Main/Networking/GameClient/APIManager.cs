@@ -8,7 +8,9 @@ using SprotoType;
 public class APIManager : HandleBehaviour {
 	public double sendFrequency = 3.0f;
 	private double sendCoolDown = 0.0f;
+	public bool NewClient = false;
     private SocketClient client;
+	public TCPClient tClient;
 	NetworkRequest pendingRequest;
 	private String serverIpAddress = "127.0.0.1";
 	private int port = 8888;
@@ -16,11 +18,23 @@ public class APIManager : HandleBehaviour {
     byte[] dataToSend;
 
 	void tryCreateConnection() {
-		if (this.client == null) {
-			this.client = new SocketClient();
+
+		if(NewClient)
+		{
+			if(tClient.connectState == ConnectionState.NotConnected)
+			{
+				Debug.Log("connecting...");
+				tClient.StartConnect();
+			}
 		}
-		if (!this.client.isConnected()) {
-			this.client.CreateConnection(serverIpAddress, port);
+		else
+		{
+			if (this.client == null) {
+				this.client = new SocketClient();
+			}
+			if (!this.client.isConnected()) {
+				this.client.CreateConnection(serverIpAddress, port);
+			}
 		}
 	}
 
@@ -71,17 +85,29 @@ public class APIManager : HandleBehaviour {
 			return;
 		}
 		this.tryCreateConnection();
-        Debug.Log("Data sent!");
-        this.client.SendMessageToServer(this.dataToSend);
+		if(NewClient)
+		{
+			tClient.SendMessageToServer(this.dataToSend, this.dataToSend.Length);
+		}
+        else
+		{
+			this.client.SendMessageToServer(this.dataToSend);
+			if (this.client.receivedDataSize > 0) {
+				//GetResponse(this.client.receivedData, this.client.receivedDataSize);
+				Person person = (Person)ConnectionManager.Instance.deserialize(this.client.receivedData, this.client.receivedDataSize);
+				Debug.Log("Received Person Name: " + person.name);
+				this.client.receivedDataSize = 0;
+			}
+		}
+		Debug.Log("Data sent!");
 		this.sendCoolDown = this.sendFrequency;
-
-        if (this.client.receivedDataSize > 0) {
-			//GetResponse(this.client.receivedData, this.client.receivedDataSize);
-			Person person = (Person)ConnectionManager.Instance.deserialize(this.client.receivedData, this.client.receivedDataSize);
-            Debug.Log("Received Person Name: " + person.name);
-            this.client.receivedDataSize = 0;
-        }
     }
+
+	public void ProcessData(byte[] data, int size)
+	{
+		Person person = (Person)ConnectionManager.Instance.deserialize(data, size);
+		Debug.Log("Received Person Name: " + person.name);
+	}
 
 	public void SendRequest(NetworkRequest request)
 	{
