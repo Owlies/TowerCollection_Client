@@ -85,9 +85,12 @@ public class TCPClient : MonoBehaviour {
 
 	public void SendMessageToServer(byte[] msgArray, int len)
 	{
-		string temp = CompileBytesIntoString(msgArray, len);
-		Debug.Log(string.Format("tcp Client sending: len: {1} '{0}'", temp, len));
-		m_clientSocket.BeginSend(msgArray, 0, len, SocketFlags.None, EndSend, msgArray);
+		if(connectState == ConnectionState.Connected)
+		{
+			string temp = CompileBytesIntoString(msgArray, len);
+			Debug.Log(string.Format("tcp Client sending: len: {1} '{0}'", temp, len));
+			m_clientSocket.BeginSend(msgArray, 0, len, SocketFlags.None, EndSend, msgArray);
+		}
 	}
 
 	void EndSend(System.IAsyncResult iar)
