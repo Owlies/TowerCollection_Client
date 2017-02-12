@@ -27,6 +27,7 @@ public class TCPClient : MonoBehaviour {
 		m_clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 		try
 		{
+			connectState = ConnectionState.AttemptingConnect;
 			System.IAsyncResult result = m_clientSocket.BeginConnect(ip, port, EndConnect, null);
 			bool connectSuccess = result.AsyncWaitHandle.WaitOne(System.TimeSpan.FromSeconds(10));
 			if (!connectSuccess)
@@ -34,12 +35,17 @@ public class TCPClient : MonoBehaviour {
 				m_clientSocket.Close();
 				Debug.LogError(string.Format("Client unable to connect. Failed"));
 			}
+			else
+			{
+				connectState = ConnectionState.NotConnected;
+			}
 		}
 		catch (System.Exception ex)
 		{
+			connectState = ConnectionState.NotConnected;
 			Debug.LogError(string.Format("Client exception on beginconnect: {0}", ex.Message));
 		}
-		connectState = ConnectionState.AttemptingConnect;
+
 	}
 
 	void EndConnect(System.IAsyncResult iar)
@@ -47,8 +53,8 @@ public class TCPClient : MonoBehaviour {
 		m_clientSocket.EndConnect(iar);
 		m_clientSocket.NoDelay = true;
 		connectState = ConnectionState.Connected;
-		BeginReceiveData();
 		Debug.Log("Client connected");
+		BeginReceiveData();
 	}
 
 	void OnDestroy()

@@ -45,8 +45,8 @@ public class APIManager : HandleBehaviour {
 		address.person = new System.Collections.Generic.List<Person> ();
 
 		Person person = new Person ();
-		person.name = "Alice";
-		person.id = 10000;
+		person.name = "Amy";
+		person.id = 10120;
 
 		person.phone = new System.Collections.Generic.List<Person.PhoneNumber> ();
 		Person.PhoneNumber num1 = new Person.PhoneNumber ();
