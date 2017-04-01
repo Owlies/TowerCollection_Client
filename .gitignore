@@ -16,3 +16,9 @@ Temp/*
 /Library/metadata/ad/*.info
 /*.sln
 /ProjectSettings
+/GameCore/GameCore/x64/Debug/*.obj
+/GameCore/GameCore/Debug/GameCore.tlog/*.tlog
+/GameCore/GameCore/Debug/*.obj
+*.tlog
+*.log
+*.ilk
