@@ -10,7 +10,7 @@ public class APIManager : HandleBehaviour {
 	private double sendCoolDown = 0.0f;
     private SocketClient client;
 	NetworkRequest pendingRequest;
-	private String serverIpAddress = "127.0.0.1";
+	private String serverIpAddress = "192.168.1.96";
 	private int port = 8888;
 
     byte[] dataToSend;
