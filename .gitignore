@@ -11,3 +11,5 @@ Temp/*
 /Library/metadata/*
 /*.sln
 /ProjectSettings
+Library/ShaderCache/
+Library/UnityAssemblies/
