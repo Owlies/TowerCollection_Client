@@ -26,7 +26,7 @@ public class APIManager : HandleBehaviour {
 			
 			if(tClient.connectState == ConnectionState.NotConnected)
 			{
-				Debug.Log("connecting...");
+				Debug.Log("connecting: " + serverIpAddress + ":" + port);
 				tClient.StartConnect(serverIpAddress, port);
 			}
 		}
