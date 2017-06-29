@@ -6,13 +6,13 @@ using Sproto;
 using SprotoType;
 
 public class APIManager : HandleBehaviour {
-	public double sendFrequency = 3.0f;
+	public double sendFrequency = 10.0f;
 	private double sendCoolDown = 0.0f;
 	public bool NewClient = false;
     private SocketClient client;
-	public TCPClient tClient;
+	private TCPClient tClient;
 	NetworkRequest pendingRequest;
-	private String serverIpAddress = "127.0.0.1";
+	private String serverIpAddress = "192.168.1.96";
 	private int port = 8888;
 
     byte[] dataToSend;
@@ -21,10 +21,13 @@ public class APIManager : HandleBehaviour {
 
 		if(NewClient)
 		{
+			if(tClient == null)
+				tClient = TCPClient.Instance;
+			
 			if(tClient.connectState == ConnectionState.NotConnected)
 			{
 				Debug.Log("connecting...");
-				tClient.StartConnect();
+				tClient.StartConnect(serverIpAddress, port);
 			}
 		}
 		else
@@ -40,6 +43,7 @@ public class APIManager : HandleBehaviour {
 
     // Use this for initialization
 	void Start() {
+
 		this.tryCreateConnection();
 		AddressBook address = new AddressBook ();
 		address.person = new System.Collections.Generic.List<Person> ();
@@ -69,6 +73,7 @@ public class APIManager : HandleBehaviour {
 		ConnectionManager.Instance.serialize(person, eMessageRequestType.ChangeEvent);
 		this.dataToSend = new byte[ConnectionManager.Instance.sendBufferSize];
 		System.Buffer.BlockCopy(ConnectionManager.Instance.sendBuffer, 0, this.dataToSend, 0, ConnectionManager.Instance.sendBufferSize);
+		//this.dataToSend[ConnectionManager.Instance.sendBufferSize] = (byte)('\n');
 	}
 
 	//Update is called once per frame
@@ -84,6 +89,7 @@ public class APIManager : HandleBehaviour {
 			this.sendCoolDown -= Time.deltaTime;
 			return;
 		}
+
 		this.tryCreateConnection();
 		if(NewClient)
 		{
