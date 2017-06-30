@@ -6,9 +6,11 @@ using Sproto;
 using SprotoType;
 
 public class APIManager : HandleBehaviour {
-	public double sendFrequency = 3.0f;
+	public double sendFrequency = 10.0f;
 	private double sendCoolDown = 0.0f;
+	public bool NewClient = false;
     private SocketClient client;
+	private TCPClient tClient;
 	NetworkRequest pendingRequest;
 	private String serverIpAddress = "192.168.1.96";
 	private int port = 8888;
@@ -16,23 +18,39 @@ public class APIManager : HandleBehaviour {
     byte[] dataToSend;
 
 	void tryCreateConnection() {
-		if (this.client == null) {
-			this.client = new SocketClient();
+
+		if(NewClient)
+		{
+			if(tClient == null)
+				tClient = TCPClient.Instance;
+			
+			if(tClient.connectState == ConnectionState.NotConnected)
+			{
+				Debug.Log("connecting: " + serverIpAddress + ":" + port);
+				tClient.StartConnect(serverIpAddress, port);
+			}
 		}
-		if (!this.client.isConnected()) {
-			this.client.CreateConnection(serverIpAddress, port);
+		else
+		{
+			if (this.client == null) {
+				this.client = new SocketClient();
+			}
+			if (!this.client.isConnected()) {
+				this.client.CreateConnection(serverIpAddress, port);
+			}
 		}
 	}
 
     // Use this for initialization
 	void Start() {
+
 		this.tryCreateConnection();
 		AddressBook address = new AddressBook ();
 		address.person = new System.Collections.Generic.List<Person> ();
 
 		Person person = new Person ();
-		person.name = "Alice";
-		person.id = 10000;
+		person.name = "Amy";
+		person.id = 10120;
 
 		person.phone = new System.Collections.Generic.List<Person.PhoneNumber> ();
 		Person.PhoneNumber num1 = new Person.PhoneNumber ();
@@ -55,6 +73,7 @@ public class APIManager : HandleBehaviour {
 		ConnectionManager.Instance.serialize(person, eMessageRequestType.ChangeEvent);
 		this.dataToSend = new byte[ConnectionManager.Instance.sendBufferSize];
 		System.Buffer.BlockCopy(ConnectionManager.Instance.sendBuffer, 0, this.dataToSend, 0, ConnectionManager.Instance.sendBufferSize);
+		//this.dataToSend[ConnectionManager.Instance.sendBufferSize] = (byte)('\n');
 	}
 
 	//Update is called once per frame
@@ -70,18 +89,31 @@ public class APIManager : HandleBehaviour {
 			this.sendCoolDown -= Time.deltaTime;
 			return;
 		}
-		this.tryCreateConnection();
-        Debug.Log("Data sent!");
-        this.client.SendMessageToServer(this.dataToSend);
-		this.sendCoolDown = this.sendFrequency;
 
-        if (this.client.receivedDataSize > 0) {
-			//GetResponse(this.client.receivedData, this.client.receivedDataSize);
-			Person person = (Person)ConnectionManager.Instance.deserialize(this.client.receivedData, this.client.receivedDataSize);
-            Debug.Log("Received Person Name: " + person.name);
-            this.client.receivedDataSize = 0;
-        }
+		this.tryCreateConnection();
+		if(NewClient)
+		{
+			tClient.SendMessageToServer(this.dataToSend, this.dataToSend.Length);
+		}
+        else
+		{
+			this.client.SendMessageToServer(this.dataToSend);
+			if (this.client.receivedDataSize > 0) {
+				//GetResponse(this.client.receivedData, this.client.receivedDataSize);
+				Person person = (Person)ConnectionManager.Instance.deserialize(this.client.receivedData, this.client.receivedDataSize);
+				Debug.Log("Received Person Name: " + person.name);
+				this.client.receivedDataSize = 0;
+			}
+		}
+		Debug.Log("Data sent!");
+		this.sendCoolDown = this.sendFrequency;
     }
+
+	public void ProcessData(byte[] data, int size)
+	{
+		Person person = (Person)ConnectionManager.Instance.deserialize(data, size);
+		Debug.Log("Received Person Name: " + person.name);
+	}
 
 	public void SendRequest(NetworkRequest request)
 	{
