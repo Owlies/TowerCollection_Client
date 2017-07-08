@@ -14,16 +14,16 @@ public class DefaultEventHandler {
 	{
 		Person person = new Person();
 		person.name = "FindMatch";
-		NetworkManager.Instance.SendNetworkRequest<Person>(person,
-			(data)=>{
-				Person receivedPerson = new Person(data);
-				Debug.Log(receivedPerson.name);
-				GameManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
-			},
-			(data)=>{
-				Debug.LogWarning("find failed!");
-			}
-		);
+		//NetworkManager.Instance.SendNetworkRequest<Person>(person,
+		//	(data)=>{
+		//		Person receivedPerson = new Person(data);
+		//		Debug.Log(receivedPerson.name);
+		//		GameManager.Instance.SendEvent(EVT_TYPE.EVT_TYPE_ENTER_GAME);
+		//	},
+		//	(data)=>{
+		//		Debug.LogWarning("find failed!");
+		//	}
+		//);
 		//NetworkManager.Instance.SendNetworkRequest("Find match",
 		//	(success) =>
 		//	{

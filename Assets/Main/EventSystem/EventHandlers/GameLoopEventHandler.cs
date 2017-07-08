@@ -46,24 +46,24 @@ public class GameLoopEventHandler{
 		Person person = new Person();
 		person.name = "Release Skill";
 
-		NetworkManager.Instance.SendNetworkRequest<Person>(person, 
-			(data)=>{
-				Person receivedPerson = new Person(data);
-				Debug.Log("success :  " + receivedPerson.name);
+		//NetworkManager.Instance.SendNetworkRequest<Person>(person, 
+		//	(data)=>{
+		//		Person receivedPerson = new Person(data);
+		//		Debug.Log("success :  " + receivedPerson.name);
 
-				Vector3 position = (Vector3)evt.evt_obj[0];
-				LevelTower tower = (LevelTower)evt.evt_obj[1];
-				GameObject gameObject = (GameObject)evt.evt_obj[2];
-				TowerButton button = (TowerButton)evt.evt_obj[3];
-				Tower towerUnit = gameObject.GetComponent<Tower>();
-				towerUnit.Ultimate(evt.evt_obj);
-				//Debug.Log("tower : " + tower.towerID + " release skill at : " + position);
-				button.ReleaseSkillSuccess();
-			},
-			(data)=>
-			{
-				Debug.LogError("Network: skill release failed!");	
-			});
+		//		Vector3 position = (Vector3)evt.evt_obj[0];
+		//		LevelTower tower = (LevelTower)evt.evt_obj[1];
+		//		GameObject gameObject = (GameObject)evt.evt_obj[2];
+		//		TowerButton button = (TowerButton)evt.evt_obj[3];
+		//		Tower towerUnit = gameObject.GetComponent<Tower>();
+		//		towerUnit.Ultimate(evt.evt_obj);
+		//		//Debug.Log("tower : " + tower.towerID + " release skill at : " + position);
+		//		button.ReleaseSkillSuccess();
+		//	},
+		//	(data)=>
+		//	{
+		//		Debug.LogError("Network: skill release failed!");	
+		//	});
 
 		//NetworkManager.Instance.SendNetworkRequest("Release skill", 
 		//	(success)=>
@@ -89,19 +89,19 @@ public class GameLoopEventHandler{
 
 		Person person = new Person();
 		person.name = "Create Tower";
-		NetworkManager.Instance.SendNetworkRequest<Person>(person, 
-			(data)=>{
+		//NetworkManager.Instance.SendNetworkRequest<Person>(person, 
+		//	(data)=>{
 
-				Person receivedPerson = new Person(data);
-				Debug.Log("success :  " + receivedPerson.name);
+		//		Person receivedPerson = new Person(data);
+		//		Debug.Log("success :  " + receivedPerson.name);
 
-				TowerButton button = (TowerButton)evt.evt_obj[0];
-				button.SpawnTowerSuccess();
-			},
-			(data)=>{
+		//		TowerButton button = (TowerButton)evt.evt_obj[0];
+		//		button.SpawnTowerSuccess();
+		//	},
+		//	(data)=>{
 
-				Debug.LogError("Network: spawn tower failed!");
-			});
+		//		Debug.LogError("Network: spawn tower failed!");
+		//	});
 
 		//NetworkManager.Instance.SendNetworkRequest("Create Tower",
 		//	(success)=>{
